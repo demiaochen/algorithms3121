@@ -1,0 +1,54 @@
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2.8cm,right=2.8cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} 
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\title{COMP3121 Assignment2 - Q1}
+\author{Demiao Chen z5289988}
+
+\begin{document}
+\maketitle
+\addcontentsline{toc}{section}{Acknowledgement}
+
+\subsection*{Answer}
+Always place on one CD until its remaining space is not enough to place the next song,
+in this case, place the song on next CD and start placing on the new CD. 
+\\ 
+\\ 
+E.g. At start, we place song 1 on $CD_1$, then place song 2 on $CD_2$ if and only if 
+there is enough space remaining
+to place it (i.e. $m-l_1 \geqslant l_2$), else place it on the next CD, which is CD 2.\\
+If we are going to place song $k$ and the last song placed is on $CD_j$, with the first song placed on $CD_j$ is song $h$ ($h < k$),
+we first decide if 
+\begin{align}\label{eq:1} 
+    m-\sum_{i = h}^{k}{l_i} \geqslant 0
+\end{align}
+If the condition hold, we place song $k$ on $CD_j$, otherwise on $CD_{j+1}$\\\\
+We now need to prove that this method is optimal. In the above condition
+to place song $k$, if (1) does not hold but place song $k$ on $CD_j$, this song cannot 
+be placed completely on $CD_j$ since the space is not enough, and we cannot spill song 
+across CDs. We cannot place song $k$ on previous CDs either as songs must be recorded in order.
+So we must place the song on the next CD.\\
+If (1) holds but place song $k$ on $CD_{j+1}$, this will not achieve the optimal solution 
+since if song $k$ is the last song needs to be recorded, there will be more than one
+CD needed compare to our method. Place on previous CDs will disorder.\\
+Any possible violation of our algorithm will result in not satisfying the question or more 
+CDs needed. Therefore, our method is optimal.\\\\
+Time complexity: there are total of n songs to be placed, each time when placing a song we check 
+if the reaming space on current CD is enough by using formula (1), which takes $O(1)$ as the time complexity of
+formula (1) does not grow proportional to n, i.e. irrelative to n. So the total time complexity is $O(n*1) = O(n)$
+
+\end{document}

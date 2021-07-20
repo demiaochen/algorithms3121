@@ -1,0 +1,47 @@
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2.8cm,right=2.8cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} 
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\title{COMP3121 Assignment1 - Q1}
+\author{Demiao Chen z5289988}
+
+\begin{document}
+\maketitle
+
+\addcontentsline{toc}{section}{Acknowledgement}
+Acknowledgement: The answer is inspired and modified from the solution of week one tutorial question 18.
+
+\subsection*{Answer}
+(a) It is clear that there are $\Perm{n}{2}=\frac{n!}{(n-2)!} = n(n-1)$ distinct pairs in A, denoting them as  $(A^2[k], A[m]), k\ne m$. Compute the sum of $A^2[k] + A[m]$ of pairs for all $1 \leq k \leq n$, $1 \leq m \leq n$ (computing sum takes $O(n^2)$)
+and sort the sum by merge sort, putting the sorted sum with its associated paris in an array of size $n(n-1)$
+, which takes $O(n^2\log{n^2}) = O(2n^2\log{n}) = O(n^2log{n})$ time.
+Then go through the sorted array and determine if there are duplicated values (such case would be consecutive repeated numbers in the array).
+For each duplicated value case, we check if their associated four numbers in the two pairs are distinct,
+which takes $O(1)$. If they are distinct, we found a case that satisfies the question. This 
+process takes $O(n^2 * 1) = O(n^2)$.
+In the end, the time taken is $O(2n^2 + n^2logn) = O(n^2logn)$.
+\\\\
+(b) Use a hash table of size n(n-1) (because there are maximum n(n-1) 
+possible values of $A^2[k] + A[m]$, $k \ne m$). Hash all the results of 
+$A^2[k] + A[m]$ for all $1 \leq k \leq n$, $1 \leq m \leq n$ with their 
+associated pairs to the hash table, 
+then go through all the slots in the hash table to check if there is a value 
+appears twice; if there is a value appears twice, we check if their associated two
+pairs are four distinct numbers, which takes time O(1); if they are distinct, it satisfies the question. This whole
+process takes time $O(n^2)$.
+
+\end{document}

@@ -1,0 +1,36 @@
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2.8cm,right=2.8cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} 
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\title{COMP3121 Assignment 2 - Q5}
+\author{Demiao Chen z5289988}
+
+\begin{document}
+\maketitle
+\addcontentsline{toc}{section}{Acknowledgement}
+
+
+
+
+\subsection*{Answer}
+Sort all jobs in descending order of profit $g_i$. Going from the job that has the highest profit
+to the lowest profit, for each job, find an empty time slot from its deadline to 0. If find an empty 
+time slot, fill the job 
+in the time slot and mark the time slot occupied. Else if no empty slot found, examine the next job.
+
+
+\end{document}

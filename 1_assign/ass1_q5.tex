@@ -1,0 +1,80 @@
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2.8cm,right=2.8cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} 
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\title{COMP3121 Assignment1 - Q5}
+\author{Demiao Chen z5289988}
+
+\begin{document}
+\maketitle
+\addcontentsline{toc}{section}{Acknowledgement}
+
+\subsection*{Answer}
+(a) $f(n) = O(g(n)).$\\
+We show that eventually $\log_2{n} < \sqrt[10]{n}$. It is clear 
+that both $\log_2{n}$ and $\sqrt[10]{n}$ are monotonically increasing function,
+and $\sqrt[10]{n}$ eventually dominates $\log_2{n}$. By applying L’Hôpital rule
+we get:
+$$
+\lim_{n \to \infty} \frac{\sqrt[10]{n}}{\log{n}} = 
+\lim_{n \to \infty} \frac{(\sqrt[10]{n})^\prime}{(\log{n})'}=
+\lim_{n \to \infty} \frac{\frac{1}{10}n^{-\frac{9}{10}}}{\frac{1}{n}}=
+\lim_{n \to \infty} \frac{n^{1/10}}{10}=
+\infty
+$$
+This proves that eventually $\log_2{n} < \sqrt[10]{n}$, hence 
+$\log_2{n} = O(\sqrt[10]{n})$.
+\\\\
+% (b) f(n) = $\Theta(g(n))$. \\
+% Take logarithm for both $n^n$ and $2^{n\log{n^2}}$ we get:
+% $$
+% \log{n^n} = n \log{n} = O(n\log{n})
+% $$
+% $$
+% \log{2^{n\log{n^2}}} = 
+% n\log{n^2}*\log{2} = 
+% 2n\log{n}*\log{2}=
+% 2\log{2} * n\log{n}
+% = O(n\log{n})$$
+% Hence, we conclude that $f(n)$ and $g(n)$ grow asymptotically the same, i.e. 
+% $f(n) = \Theta(g(n))$.
+(b) $f(n) = O(g(n))$. \\
+By manipulating $g(n)$, we get $$
+2^{n\log_2{n^2}} = 2^{\log_2{n^{2n}}} = n^{2n}.
+$$
+Then we get $$
+\frac{g(n)}{f(n)} = \frac{n^{2n}}{n^n} = n^n.
+$$
+So it is clear that $f(n) < g(n)$ for $n>0$, $g(n)$ dominates $f(n)$.
+Hence $f(n) = O(g(n))$.
+\\\\
+(c) $f(n) = \Theta (g(n))$. \\
+As we assume $n$ is a positive integer, for any given $n$,
+$\sin {\pi n} = 0$. \\
+Hence, $$f(n) = n ^ {1 + \sin {\pi n}} = n ^ {1 + 0} = n = g(n).$$
+Therefore, $f(n)$ and $g(n)$ have the same growth rate, so
+$f(n) = O(g(n))$ and $g(n) = O(f(n))$ both hold, i.e. $f(n) = \Theta (g(n))$.
+
+% Neither.\\
+% Notice that when $n = \frac{1}{2} + 2k, k \in N$, $f(n)
+% = n^2$, which grows much faster than $g(n) = n$. When $
+% n = \frac{3}{2} + 2k, k \in N$, $f(n) = n^0 = 1$, so in this 
+% case $g(n)$ grows much faster than $f(n)$. Thus, neither $
+% f(n) = O(g(n))$ nor $
+% g(n) = O(f(n))$ is satisfied.
+
+\end{document}

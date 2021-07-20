@@ -1,0 +1,67 @@
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2.8cm,right=2.8cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} 
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\title{COMP3121 Assignment 2 - Q4}
+\author{Demiao Chen z5289988}
+
+\begin{document}
+\maketitle
+\addcontentsline{toc}{section}{Acknowledgement}
+
+\subsection*{Answer}
+We can have a greedy method to solve the problem.
+Loop array $A[i]$ from $i=1$ to $i=n-1$. We check the $i^{th}$ stack if $$
+A[i] < A[i+1],
+$$
+if so, the $i^{th}$ stack and the $(i+1)^{th}$ stack are strictly increasing, so from the $1^{st}$ 
+to the $(i+1)^{th}$ stack are strictly increasing in number of blocks, then go to the next index of array $A$ ;\\
+if not, we have to satisfy that if there can be $x$ ($0 < x \leq i$) blocks moved from $i^{th}$ stack
+to $(i+1)^{th}$ stack, such that the two following conditions hold:
+\begin{align}\label{eq:1} 
+    A[i+1] + x \geq  A[i] - x + 1\\
+    A[i] - x \geq A[i-1]+ 1
+\end{align}
+that is to add a minimum integer $x$ to $A[i+1]$ that makes $A[i+1]$ strictly bigger than $A[i]$, but also keep $A[i]$
+strictly bigger than $A[i-1]$ after subtract $x$.\\
+Transform the two conditions (1) (2) we get the following
+\begin{align}
+   x \geq \frac{A[i]-A[i+i]+1}{2} \\
+    x \leq A[i] - A[i-1] - 1
+\end{align}
+As $x$ must be an integer, we can get $x$ by 
+\begin{align}
+    x =\ulcorner\frac{A[i]-A[i+i]+1}{2}\urcorner 
+\end{align}
+that is get the celling of the right hand of (3).\\
+Then we check if the $x$ from the result of (5) satisfies
+\begin{align}
+    x \leq i
+\end{align}
+and (4).\\
+If either (4) or (6) $x$ does not satisfy, we conclude that such movements does not exist and 
+end the algorithm.\\
+Else we add the $x$ to $A[i+1]$ and go to the next index of array $A$.\\
+If we finish the loop of array $A$, we conclude that such movements exists. Algorithm finished.\\\\
+Time complexity: compute $x$ from (5) then do comparisons (4) and (6), or just one $
+A[i] < A[i+1]
+$ comparison take time $O(1)$, and the length of array
+$A$ is $n$ so we need to do $n-1$ times such calculations. Therefore, the time complexity of
+ the algorithm is $O((n-1)*1) = O(n)$ 
+
+
+\end{document}

@@ -1,0 +1,53 @@
+\documentclass[12pt]{article}
+
+% Language settinghe document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2.8cm,right=2.8cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} 
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\title{COMP3121 Assignment1 - Q2}
+\author{Demiao Chen z5289988}
+
+\begin{document}
+\maketitle
+\addcontentsline{toc}{section}{Acknowledgement}
+
+\subsection*{Answer}
+First loop the set to find the minimum $y_{min}$ in O(n) as there
+are n elements in the set. Since $y_i$, $c_i$ and $E$ are positive
+integers, and $y_i = c_i + E$, the maximum value for $E$ is $y_{min} - 1$.
+We know the value of $y_i$ and $x_i$, and $S =
+\sum_{n = 1}^{\infty} \frac{x_i}{y_i-E} $. Hence, we try 
+$E = y_{min} - 1$, put it in $
+\sum_{n = 1}^{\infty} \frac{x_i}{y_i-E} $ and calculate the sum, which takes
+$O(n)$, then do comparison with $S$. If it equals to $S$, we get the correct $E$ and 
+then use $E$ to get all the correct values of fractions $x_i/c_i$ in O(n).
+If it does not equal to S, we try another value of $E$ in 
+a binary search way. We first try half of it, i.e. $
+\frac{y_{min} - 1}{2}$ (round it to an integer if it is not an integer), then
+compare it with $S$. If it equals to $S$, we get the correct $E$; if it is smaller
+than S, it means the value of $E$ we try is smaller than the correct one
+($\sum_{n = 1}^{\infty} \frac{x_i}{y_i-E}$ and $E$ are in positive correlation),
+so choose a higher value of $E$ in binary search way; the same approach also 
+applies when the sum is bigger than $E$, in that case we try a smaller $E$ (binary 
+search in lower value direction).
+ We keep doing the process until 
+we find the correct $E$, then easily get all ${x_i}/{c_i}$ in time $O(n)$. As each search query we calculate a sum in $O(n)$, and the 
+maximum times of query is $\log{y_{min}}$, the whole binary search process takes $O(n\log{y_{min}})$. 
+So it can find all the correct values of fractions ${x_i}/{c_i}$ by this
+method in time $O(n\log{y_{min}})$.
+
+
+
+
+\end{document}

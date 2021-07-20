@@ -1,0 +1,39 @@
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2.8cm,right=2.8cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} 
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\title{COMP3121 Assignment2 - Q2}
+\author{Demiao Chen z5289988}
+
+\begin{document}
+\maketitle
+\addcontentsline{toc}{section}{Acknowledgement}
+Acknowledgement: The answer is inspired by tutorial 3 question 27 solution.
+\subsection*{Answer}
+First we sort $N$ workers based on their skill level $x_i$ in ascending order, and 
+$P$ entry-level jobs based on their maximum accept skill level $p_i$ in ascending order, and 
+$Q$ senior jobs based on their minimum accept skill level $q_i$ in ascending order.
+This sorting process takes time $O(N log N + P log P + Q log Q)$ in total. \\
+Going from the least skilled to the most skilled worker, assign each worker a entry-level
+job with the lowest $p_i$ that they meet and has not been assigned, if one exists. The remaining
+workers, that is who has not been assigned a work, going from the least skilled to the most skilled, 
+assign each remaining worker a senior job with the highest $q_i$ that they meet and has not been assigned, if one
+exist. This assigning process takes time $O(N)$.\\
+So the total time taken is $O(N log N + N + P log P + Q log Q) = O(N log N + P log P + Q log Q)$, which
+satisfies the question.
+
+\end{document}

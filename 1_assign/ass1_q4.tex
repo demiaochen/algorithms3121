@@ -1,0 +1,36 @@
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2.8cm,right=2.8cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} 
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\title{COMP3121 Assignment1 - Q4}
+\author{Demiao Chen z5289988}
+
+\begin{document}
+\maketitle
+\addcontentsline{toc}{section}{Acknowledgement}
+
+\subsection*{Answer}
+Use binary search for the given array. For each search, if f(m) equal to m+1 (
+    indicating that the missing term is not between index 0 and m
+), next binary search the right side, else binary search the left side. We keep doing 
+binary search until we find the term i which satisfies $f(i) = i+2$ and $f(i-1) = i+1$, 
+and we get the missing term k = i - 1.
+As the time complexity of binary search is O(logn) and there are $2^n-1$ terms in the 
+array, it most accesses $log2^n = n$ elements of A.
+
+
+\end{document}

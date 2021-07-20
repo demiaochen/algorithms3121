@@ -1,0 +1,36 @@
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2.8cm,right=2.8cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} 
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\title{COMP3121 Assignment1 - Q3}
+\author{Demiao Chen z5289988}
+
+\begin{document}
+\maketitle
+
+
+\subsection*{Answer}
+First sort array A in O(nlogn) by merge sort. Then use binary search in A to find
+the first element that less or equal to L; if it hits L, check if the 
+preceding element is equal to L; if it equals L, continue binary search until 
+the first element equal to L is found. Then use the same strategy to find the first 
+element that is greater than U or the last element equals to U. The difference of the 
+two elements' index plus one is the result for a query.\\
+As each binary search takes O(logn), the searching process takes O(nlogn) overall.
+
+
+\end{document}
