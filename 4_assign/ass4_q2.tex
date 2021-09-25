@@ -1,0 +1,79 @@
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2.8cm,right=2.8cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} 
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\title{COMP3121 Assignment 4 - Q2}
+\author{Demiao Chen z5289988}
+
+\begin{document}
+\maketitle
+\addcontentsline{toc}{section}{Acknowledgement}
+
+\subsection*{Answer}
+We model this as a max flow problem. 
+Make a bipartite graph with vertices on the left side 
+representing warehouse and vertices on the right 
+side representing shops. Introduce a super source and a super sink.
+Connect each warehouse with the super source by a directed edge 
+of capacity equal to 1 to represent if a truck has been sent in the shop. 
+Connect each shop with the super sink with a directed edge of 
+capacity equal to 1 to represent if a shop has been supplied. \\
+We now sort all roads $r_i$ in terms of its time taken to drive $d_i$ to form an 
+increasing sequence by merge sort. Then we take an $i$ between 1 and the 
+number of roads $m$ in a binary search way, that is we first take
+$i = \frac{m}{2}$, then we construct edges in our graph by adding 
+directed edges point to shop vertices to represent roads
+from $r_1$ to $r_i$ in the graph to connect corresponding 
+warehouse and shop vertices, with capacity equal to 1.
+Then we run 
+Edmonds-Karp algorithm on our graph to get the residual 
+graph, and get the max flow from the final residual graph. 
+The max flow in our graph represent the maximum shops we can 
+supply in the current constructed graph.
+If max flow equals number of shops $n$, means all shops can be 
+supplied, we take a smaller $i$ in binary search way and remove all edges to repeat
+above process, 
+else we take a bigger $i$ in binary search way and remove all edges to repeat
+above process, 
+until max flow of the graph equals $n$ and $d_i$ is minimised.\\
+After finishing the above process, we have get the smallest $d_i$ and 
+its corresponding flow network graph,
+hence we run Edmonds-Karp algorithm in the 
+final constructed graph to get the residual 
+graph. In the final residual graph, we output 
+each warehouse vertex and its connected edge (road) 
+with direction towards the warehouse and
+its connected shop vertex, which means this arrangement: send truck from the vertex
+represented warehouse
+to the vertex represented shop through the edge represented road.\\\\
+%%
+Time complexity: We used binary search to get $i$ from $i = 1$ to $i = m$, and each constructed graph we 
+run Edmonds-Karp algorithm on it. As we have $n$ ware houses, $m$ roads,
+there are $2n+2$ vertices in the graph in total, $m+2n$ edges (including 
+edges between super source  and super sink), and time complexity of Edmonds-Karp algorithm
+is $O(|V||E|^2)$,
+hence the time complexity of our algorithm is $O((2n+2) \cdot (m+2n)^2 \cdot \log{m}) = O((m^2n + n^3 + mn^2) \cdot \log{m})$. 
+It is obvious that $m \ge n$, so $O((m^2n + n^3 + mn^2) \cdot \log{m}) = O(m^2n \cdot \log{m})$.
+The final result output process takes $O(n)$.\\\\
+Therefore, the overall time complexity of our algorithm is $O(m^2n \cdot \log{m})+O(n)$ = 
+$O(m^2n\cdot \log{m})$.
+
+
+
+
+\end{document}
+

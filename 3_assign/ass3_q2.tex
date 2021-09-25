@@ -1,0 +1,48 @@
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2.8cm,right=2.8cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} 
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\title{COMP3121 Assignment 3 - Q2}
+\author{Demiao Chen z5289988}
+
+\begin{document}
+\maketitle
+\addcontentsline{toc}{section}{Acknowledgement}
+Acknowledgement: the answer is inspired from tutorial 4 question 12 b) solution.
+
+\subsection*{Answer}
+We solve all subproblems of the form: 
+``What is the smallest total elevation we can get arriving 
+at the cell at row $i$ and column $j$ from square $(1, R)$”?
+We use $opt(i,j)$ to denote such smallest total elevation and 
+square(i, j) to denote the elevation number on row $i$ and column $j$, so 
+the base case is $opt(1,R) = square(1, R)$, and $opt(1,1) = \infty$ for
+ all $i $ and $j$ that are off the square. We use a recursion and a list 
+ called $path$ to record the $opt(i, j)$ we choose.
+ The recursion is: 
+\[
+ opt(i, j) = square(i, j) + min\{opt(i - 1, j), opt(i, j + 1)\} .
+\]
+After solving all subproblems, we start recursion by $i = C$ and $j = 1$, and 
+add tuple $(i, j)$ to list $path$
+for each time calling $opt(i,j)$ from $opt(C,1)$, where $i$, $j$ are chosen from $min\{opt(i - 1, j), opt(i, j + 1)\}$,
+then reverse $path$
+when finishing the whole recursion. The tuple list $path$ is the path we are looking for.\\
+As the dimension of the square is $R$ x $C$, we need to solve $R * C$ subproblems,
+and each subproblem takes $O(1)$. Hence the time complexity is $O(RC)$
+
+\end{document}

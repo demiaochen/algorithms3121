@@ -1,0 +1,47 @@
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2.8cm,right=2.8cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} 
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\title{COMP3121 Assignment 4 - Q3}
+\author{Demiao Chen z5289988}
+
+\begin{document}
+\maketitle
+\addcontentsline{toc}{section}{Acknowledgement}
+
+\subsection*{Answer}
+We model this as a max flow problem, with vertex capacities. We first construct a 
+flow network as a directed graph where square 1 is the source, square $n$ is the 
+sink. Each rest square $i$ will be split into two vertices as $v_{iin}$ and $v_{iout}$,
+each $v_{iin}$ has only one outgoing edge which towards to $v_{iout}$, the capacity of 
+the edge between $v_{iin}$ and $v_{iout}$ equals to $A[i]$. Each vertex $v_{iout}$ and source
+has directed edges towards to $v_{(i+1)in}$,  $v_{(i+2)in}$ ...  $v_{(i+k)in}$, with
+capacity equal to infinity.\\
+To find the largest number of children who can successfully complete the game
+is to find the max flow in our constructed graph. We now run Edmonds-Karp algorithm
+on our graph, in the final residual graph, the sum of the weight of the incoming 
+edges towards source is the largest number we are looking for.\\\\
+Time complexity: since the time complexity of Edmonds-Karp algorithm is 
+$O(|V||E|^2)$, where $|E|$ is the number of edges, $|V|$ is the number of 
+vertices, we have $k n + n$ edges, $2n + 2$ vertices in the graph, 
+hence the time complexity is $O((2n+2)\cdot(kn+n)^2)$ = $O(k^2n^3)$.
+
+
+
+
+\end{document}
+

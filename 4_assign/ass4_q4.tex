@@ -1,0 +1,65 @@
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2.8cm,right=2.8cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} 
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\title{COMP3121 Assignment 4 - Q4}
+\author{Demiao Chen z5289988}
+
+\begin{document}
+\maketitle
+\addcontentsline{toc}{section}{Acknowledgement}
+
+\subsection*{Answer}
+We initialise a 2D array board with size $n \times n$, 
+then for each white shop $s_i$,
+based on its position $(a_i, b_i)$, we mark board[$a_i$][$b_i$] and all 
+entries on its diagonal directions as ``attacked".\\
+Model this as a max flow problem. We construct a 
+bipartite graph with vertices on the left side 
+representing $n$ rows in the board,  denoted as $r_i$,
+and vertices on the left side representing $n$ columns of 
+the board, denoted as $l_i$.
+Introduce a super source and a super sink.
+Connect each $r_i$ with the super source 
+by a directed edge of capacity equal to 1.
+Connect each $l_i$ with the super
+sink with a directed edge of capacity equal to 1.
+For constructing the edges between $r_i$ and $l_i$, we check 
+the array we made, if board[$r_i$][$l_i$] is not marked as 
+``attacked" (means the position is not under attacked by white bishop), 
+we construct a edge from $r_i$ to $l_i$, with capacity equal to 
+1. \\
+Now, the largest number of black rooks we can place is the max flow 
+of our constructed graph. We run Edmonds-Karp algorithm on our
+graph to get the residual graph. In the ﬁnal residual graph, 
+the sum of the weight of the incoming edges towards source equals to 
+the max flow, which is the largest number we are looking for.\\\\
+Time complexity: constructing the 2D array board takes $O(kn)$, $k \le n^2$.
+Since the time complexity of 
+Edmonds-Karp algorithm is $O( | V || E | ^2 )$, 
+where $|E|$ is the number of edges, $| V |$ is the number of 
+vertices, we have maximum $2n + n^2$ edges, 
+and $2n + 2$ vertices in the constructed graph, 
+hence the time complexity to get the  max flow is $O((2n + 2) \cdot (2n+n^2)^2) = O(n^5)$.
+Therefore the overall time complexity of our algorithm is $O(kn) + O(n^5) = O(n^5)$.
+
+
+
+
+
+\end{document}
+

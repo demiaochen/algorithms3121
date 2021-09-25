@@ -1,0 +1,56 @@
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2.8cm,right=2.8cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} 
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\title{COMP3121 Assignment 4 - Q1}
+\author{Demiao Chen z5289988}
+
+\begin{document}
+\maketitle
+\addcontentsline{toc}{section}{Acknowledgement}
+
+\subsection*{Answer}
+We model this as a Max Flow - Min Cut problem. We first construct a 
+a ﬂow network as a directed graph where computer 1 is the source,
+computer $N$ is the sink, and the rest computers
+are vertices between source and sink. The capacity of each edge between
+two vertices will be equal the cost of removing its corresponding link
+between two computers.\\
+We now need to find a min cut in the graph, which produces two subsets 
+of the graph $S$ and $T$, where $S \cup  T = V$, $S \cap T = \varnothing$ and
+$s \in S$, $t \in T$. Removing the edges in min cut will make computer 1
+and computer $N$ not connected, and the cost is minimum. So our goal 
+is to find the min cut in the graph.\\
+To find the minimum cut, we run Edmonds-Karp algorithm to our
+flow network graph to get the residual graph. Then we take 
+source as start vertex, run breadth first search in the residual graph.
+Hence we get a set of vertices that is reachable from the source,
+those are the vertices belong to $S$, and the rest vertices will belong 
+to $T$. Then we find the minimum cut, that is the edges 
+with forward direction in the original flow network graph
+between set $S$ and set $T$. Therefore, the links 
+we need to remove are the links between $S$ and $T$ with forward direction.\\\\
+Time complexity: since the time complexity of Edmonds-Karp is $O(|V||E|^2)$, where $|V|$
+is number of vertices, $|E|$ is the number of edges, and time complexity of breadth
+first search algorithm is $O(|V|+|E|)$. It takes $O(|E|)$ 
+to find all edges between two sets. We have
+$M$ edges (links) and $N$ vertices (computers).
+Therefore, the time complexity of our algorithm to find the links to remove is $O(NM^2 + N + 2M) = O(NM^2)$
+
+
+
+\end{document}

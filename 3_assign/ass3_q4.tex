@@ -1,0 +1,47 @@
+\documentclass[12pt]{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=2.8cm,right=2.8cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} 
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\title{COMP3121 Assignment 3 - Q4}
+\author{Demiao Chen z5289988}
+
+\begin{document}
+\maketitle
+\addcontentsline{toc}{section}{Acknowledgement}
+
+
+\subsection*{Answer}
+We solve all subproblems of the form: ``What is the maximum
+total enjoyment we can get by only choosing activities in the first 
+$k$ days, such that the $(k-1)^{th}$ day's activity $b$ is different 
+from the $k^{th}$ day's activity $a$.'' The base case is opt$(0, b)$ = 0. 
+The recursion is: 
+\[
+    opt(k, a) = e(k, a) + max \{ opt(k-1, b) :  a \neq  b \}    
+\]
+Here, $e(k, a)$ is the enjoyment obtained by choosing activity $a$ on day $k$.\\
+To reconstruct the sequence of activities we choose for each day, 
+we deﬁne the following function: 
+\[
+    from(k,a) =  \underset{1 \leq k \leq N}{arg\,max}\{ opt(k, b) :  a \neq  b \}.
+\]
+Here arg\,min returns the value of $b$ that produces the maximum value of \{$opt(k, b) :  a \neq  b$\}.
+The maximum enjoyment can get is $opt(N+1, a)$. To get the sequence of activities we chose,
+we backtrack from post $n$ giving the sequence $\{ n, from(n), from(from(n)), ..., 1 \}$.
+The complexity is $O(N)$ because there are $N$ days, and number of activities are fixed.
+
+\end{document}
